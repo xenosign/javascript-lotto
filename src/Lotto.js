@@ -7,6 +7,9 @@ class Lotto {
     this.#numbers = numbers;
     this.counts = counts;
     this.bonus = bonus;
+    this.money = counts * 1000;
+    this.winnings = 0;
+    this.rating = 0;
   }
 
   validate(numbers) {
@@ -63,24 +66,39 @@ class Lotto {
     showArr.map((el, index) => {
       if (index === 0) {
         MissionUtils.Console.print(`${index + 3}개 일치 (5,000)원 - ${el}개`);
+        this.winnings = this.winnings + 5000 * el;
       }
 
       if (index === 1) {
         MissionUtils.Console.print(`${index + 3}개 일치 (50,000)원 - ${el}개`);
+        this.winnings = this.winnings + 50000 * el;
       }
 
       if (index === 2) {
         MissionUtils.Console.print(
           `${index + 3}개 일치 (1,500,000)원 - ${el}개`
         );
+        this.winnings = this.winnings + 1500000 * el;
+      }
+
+      if (index === 4) {
+        MissionUtils.Console.print(
+          `${index + 3}개 일치, 보너스 볼 일치 (30,000,000)원 - ${el}개`
+        );
+        this.winnings = this.winnings + 30000000 * el;
       }
 
       if (index === 3) {
         MissionUtils.Console.print(
           `${index + 3}개 일치 (2,000,000,000)원 - ${el}개`
         );
+        this.winnings = this.winnings + 2000000000 * el;
       }
+
+      this.rating = Math.round((this.winnings / this.money) * 100) / 100;
     });
+
+    MissionUtils.Console.print(`총 수익률은 ${this.rating}%입니다.`);
   }
 }
 
