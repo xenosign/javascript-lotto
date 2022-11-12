@@ -34,16 +34,17 @@ class Lotto {
     const resultArr = [];
 
     for (let i = 0; i < lottoNumbers.length; i++) {
-      console.log('this.#numbers', this.#numbers);
-      let interSection = this.#numbers.filter(x => lottoNumbers[i].includes(x));
+      let interSection = this.#numbers.filter((x) =>
+        lottoNumbers[i].includes(x)
+      );
       resultArr.push(interSection.length);
     }
 
-    const isBonus = resultArr.findIndex(el => el === this.bonus);
+    const isBonus = resultArr.findIndex((el) => el === this.bonus);
 
     let bonusIndex = -1;
     if (isBonus !== -1) {
-      bonusIndex = lottoNumbers[isBonus].findIndex(el => el === this.bonus);
+      bonusIndex = lottoNumbers[isBonus].findIndex((el) => el === this.bonus);
     }
 
     if (bonusIndex) {
@@ -56,7 +57,7 @@ class Lotto {
   showResult(resultArr) {
     const showArr = [];
     for (let i = 3; i <= 6; i++) {
-      showArr.push(resultArr.filter(x => x === i).length);
+      showArr.push(resultArr.filter((x) => x === i).length);
     }
 
     showArr.map((el, index) => {
@@ -69,19 +70,18 @@ class Lotto {
       }
 
       if (index === 2) {
-        MissionUtils.Console.print(`${index + 3}개 일치 (1,500,000)원 - ${el}개`);
+        MissionUtils.Console.print(
+          `${index + 3}개 일치 (1,500,000)원 - ${el}개`
+        );
       }
 
       if (index === 3) {
-        MissionUtils.Console.print(`${index + 3}개 일치 (2,000,000,000)원 - ${el}개`);
+        MissionUtils.Console.print(
+          `${index + 3}개 일치 (2,000,000,000)원 - ${el}개`
+        );
       }
-
-    })
-
+    });
   }
-
-
-
 }
 
 module.exports = Lotto;
