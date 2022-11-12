@@ -16,6 +16,16 @@ class Lotto {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
+
+    if (new Set(numbers).size !== 6) {
+      throw new Error(
+        "[ERROR] 중복 된 숫자를 입력 하셨거나, 숫자 6개를 입력 하시지 않으셨습니다"
+      );
+    }
+
+    if (numbers.filter((el) => el >= 1 && el <= 45).length !== 6) {
+      throw new Error("[ERROR] 1 ~ 45 사이의 숫자를 입력하세요");
+    }
   }
 
   playLotto() {
