@@ -2,43 +2,58 @@ const MissionUtils = require("@woowacourse/mission-utils");
 class Lotto {
   #numbers;
 
-  constructor(numbers) {
+  constructor(numbers, bonus, counts) {
     this.validate(numbers);
     this.#numbers = numbers;
-    this.counts = 0;
+    this.counts = counts;
+    this.bonus = bonus;
   }
 
   validate(numbers) {
     if (numbers.length !== 6) {
       throw new Error("[ERROR] 로또 번호는 6개여야 합니다.");
     }
-    this.makeLottoNumbers(numbers.length, numbers);
   }
 
-  makeLottoNumbers(counts, numbers) {
+  playLotto() {
+    this.makeLottoNumbers();
+  }
+
+  makeLottoNumbers() {
     const lottoNumbers = [];
-    this.counts = counts;
-    for (let i = 0; i < counts; i++) {
+    for (let i = 0; i < this.counts; i++) {
       const lotto = MissionUtils.Random.pickUniqueNumbersInRange(1, 45, 6);
       lotto.sort((a, b) => a - b);
       lottoNumbers.push(lotto);
     }
 
-    this.checkLotto(lottoNumbers, numbers);
+    this.checkLotto(lottoNumbers);
   }
 
-  checkLotto(lottoNumbers, numbers) {
+  checkLotto(lottoNumbers) {
     const resultArr = [];
+
     for (let i = 0; i < lottoNumbers.length; i++) {
-      let interSection = numbers.filter(x => lottoNumbers[i].includes(x));
+      console.log('this.#numbers', this.#numbers);
+      let interSection = this.#numbers.filter(x => lottoNumbers[i].includes(x));
       resultArr.push(interSection.length);
     }
 
-    const isBonus = resultArr.findIndex(el => el === 5);
-    this.showResult(resultArr, numbers);
+    const isBonus = resultArr.findIndex(el => el === this.bonus);
+
+    let bonusIndex = -1;
+    if (isBonus !== -1) {
+      bonusIndex = lottoNumbers[isBonus].findIndex(el => el === this.bonus);
+    }
+
+    if (bonusIndex) {
+      resultArr.push(1);
+    }
+
+    this.showResult(resultArr);
   }
 
-  showResult(resultArr, numbers) {
+  showResult(resultArr) {
     const showArr = [];
     for (let i = 3; i <= 6; i++) {
       showArr.push(resultArr.filter(x => x === i).length);

@@ -61,9 +61,10 @@ class App {
   }
 
   checkLotto() {
-    MissionUtils.Console.print(`${this.counts}개를 구매했습니다.`)
+    MissionUtils.Console.print(`${this.counts}개를 구매했습니다.`);
 
-    new Lotto(this.userLottoNumbers);
+    const lotto = new Lotto(this.userLottoNumbers, this.bonus, this.counts);
+    lotto.playLotto();
   }
 
 
