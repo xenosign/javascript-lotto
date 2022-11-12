@@ -33,18 +33,6 @@ class App {
     MissionUtils.Console.readLine(
       "로또 당첨 번호를 입력하세요(',' 쉼표로 구분) : ",
       (userInput) => {
-        const userLottoArr = userInput.split(",").map(Number);
-
-        if (new Set(userLottoArr).size !== 6) {
-          throw new Error(
-            "[ERROR] 중복 된 숫자를 입력 하셨거나, 숫자 6개를 입력 하시지 않으셨습니다"
-          );
-        }
-
-        if (userLottoArr.filter((el) => el >= 1 && el <= 45).length !== 6) {
-          throw new Error("[ERROR] 1 ~ 45 사이의 숫자를 입력하세요");
-        }
-
         this.userLottoNumbers = userLottoArr;
 
         this.getBonusInput();
